@@ -1,33 +1,31 @@
 package models
 
 type Template struct {
-	Path   string
-	Suffix string
+	Path   string `yaml:"path"`
+	Suffix string `yaml:"suffix"`
 }
 
-type Field struct {
-	Name string
-	Type string
-}
+type Field map[string]interface{}
 
 type Model struct {
-	Name   string
-	Fields []Field
+	Name   string  `yaml:"name"`
+	Plural string  `yaml:"plural"`
+	Fields []Field `yaml:"fields"`
 }
 
 type Operation struct {
-	Name     string
-	Filename string
-	Template string
+	Name     string `yaml:"name"`
+	Filename string `yaml:"filename"`
+	Template string `yaml:"template"`
 }
 
 type Generator struct {
-	Operations []Operation
+	Operations []Operation `yaml:"operations"`
 }
 
 type Document struct {
-	Root     string
-	Template Template
-	Model    Model
-	Generate Generate
+	Root      string    `yaml:"root"`
+	Template  Template  `yaml:"template"`
+	Model     Model     `yaml:"model"`
+	Generator Generator `yaml:"generator"`
 }
