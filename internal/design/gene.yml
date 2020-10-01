@@ -1,0 +1,22 @@
+root: "."
+template:
+  path: "templates"
+  suffix: "_gene"
+model:
+  name: "Certificate"
+  fields:
+    - name: "profile_id"
+      type: "string"
+    - name: "certificate_type_id"
+      type: "string"
+    - name: "emissor_id"
+      type: "string"
+    - name: "expiration_date"
+      type: "Date"
+    - name: "data"
+      type: "string"
+generate:
+  operations:
+    - name: "model"
+      filename: "certificate.ts"
+      template: "model.tmpl"
