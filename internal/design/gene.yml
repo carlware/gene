@@ -1,5 +1,5 @@
-root: "./src/"
-template_path: "./templates"
+destination: "./src/"
+templates_path: "./templates"
 model:
   name: "certificate"
   plural: "certificates"
@@ -23,7 +23,7 @@ model:
 generator:
   operations:
     - name: "index"
-      path: "Models/{{ .ModelName }}/index.ts"
+      path: "Models/{{ .Model.Name }}/index.ts"
       template: "api.tmpl"
       properties:
         name: "Certificate"
@@ -35,10 +35,10 @@ generator:
           - name: "Certificate"
             file: ""
     - name: "model"
-      path: "Models/{{ .ModelName }}/{{ .ModelName }}.ts"
+      path: "Models/{{ .Model.Name }}/{{ .Model.Name }}.ts"
       template: "model.tpml"
     - name: "create"
-      path: "Models/{{ .ModelName }}/{{ .ModelName -}}_{{ .Name -}}.ts"
+      path: "Models/{{ .Model.Name }}/{{ .Model.Name -}}_{{ .Name -}}.ts"
       template: "create.tmpl"
       exclude_fields:
         - "id"
@@ -47,6 +47,6 @@ generator:
     - name: "api_post"
       filename: "index.ts"
       template: "api_post.tmpl"
-      path: "API/{{ .ModelName }}/{{ .ModelName }}_post.ts"
+      path: "API/{{ .Model.Name }}/{{ .Model.Name }}_post.ts"
       fields:
         - name: "post"

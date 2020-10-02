@@ -1,10 +1,5 @@
 package models
 
-type Template struct {
-	Path   string `yaml:"path"`
-	Suffix string `yaml:"suffix"`
-}
-
 type Field map[string]interface{}
 
 type Model struct {
@@ -15,7 +10,6 @@ type Model struct {
 
 type Operation struct {
 	Name          string                 `yaml:"name"`
-	Filename      string                 `yaml:"filename"`
 	Template      string                 `yaml:"template"`
 	Path          string                 `yaml:"path"`
 	ExcludeFields []string               `yaml:"exclude_fields"`
@@ -27,20 +21,16 @@ type Generator struct {
 }
 
 type Document struct {
-	Root         string    `yaml:"root"`
-	TemplatePath string    `yaml:"template_path"`
-	Model        Model     `yaml:"model"`
-	Generator    Generator `yaml:"generator"`
+	Destination   string    `yaml:"destination"`
+	TemplatesPath string    `yaml:"templates_path"`
+	Model         Model     `yaml:"model"`
+	Generator     Generator `yaml:"generator"`
 }
 
-type Operator struct {
-	Name        string                 `yaml:"name"`
-	Model       Model                  `yaml:"model"`
-	ModelName   string                 `yaml:"model_name"`
-	ModelPlural string                 `yaml:"model_plural"`
-	Template    string                 `yaml:"template"`
-	Suffix      string                 `yaml:"suffix"`
-	Path        string                 `yaml:"path"`
-	Fields      []Field                `yaml:"fields"`
-	Properties  map[string]interface{} `yaml:"properties"`
+type Gene struct {
+	Name       string                 `yaml:"name"`
+	Model      *Model                 `yaml:"model"`
+	Template   string                 `yaml:"template"`
+	Path       string                 `yaml:"path"`
+	Properties map[string]interface{} `yaml:"properties"`
 }

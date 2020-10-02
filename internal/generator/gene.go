@@ -47,9 +47,8 @@ func Generate(operation interface{}, temp, output string) error {
 	return nil
 }
 
-func RunOperation(oper *models.Operator) {
+func RunOperation(oper *models.Gene) {
 	fmt.Println(oper)
-	fmt.Println("model name", oper.ModelName)
 	Generate(oper, oper.Template, oper.Path)
 
 }
@@ -100,22 +99,24 @@ func Gen(templatePath string) {
 	fmt.Println("operations")
 	for _, oper := range doc.Generator.Operations {
 		fmt.Println("#### operation ###")
-		op := &models.Operator{
-			Name:        oper.Name,
-			Template:    path.Join(doc.TemplatePath, oper.Template),
-			ModelPlural: doc.Model.Plural,
-			ModelName:   doc.Model.Name,
-			Fields:      ExcludeKeys(doc.Model.Fields, oper.ExcludeFields),
-			Properties:  oper.Properties,
+		op := &models.Gene{
+			Name:     oper.Name,
+			Template: path.Join(doc.TemplatesPath, oper.Template),
+			Model: &models.Model{
+				Name:   doc.Model.Name,
+				Plural: doc.Model.Plural,
+				Fields: ExcludeKeys(doc.Model.Fields, oper.ExcludeFields),
+			},
+			Properties: oper.Properties,
 		}
 
 		// TODO: verify error
-		path, err := utils.EvalString(oper.Path, op)
+		dst, err := utils.EvalString(oper.Path, op)
 		if err != nil {
 			panic(err)
 		}
 
-		op.Path = doc.Root + string(path)
+		op.Path = path.Join(doc.Destination, string(dst))
 
 		RunOperation(op)
 		fmt.Println("#############")
