@@ -6,6 +6,7 @@ import (
 	"carlware/gene/internal/utils"
 	"io/ioutil"
 	"os"
+	"path"
 	"strings"
 	"text/template"
 
@@ -48,6 +49,7 @@ func Generate(operation interface{}, temp, output string) error {
 
 func RunOperation(oper *models.Operator) {
 	fmt.Println(oper)
+	fmt.Println("model name", oper.ModelName)
 	Generate(oper, oper.Template, oper.Path)
 
 }
@@ -93,15 +95,18 @@ func Gen(templatePath string) {
 		fmt.Println("template error", err)
 	}
 
+	// masterTmpl, err := template.New("master").Funcs(funcs)
+
 	fmt.Println("operations")
 	for _, oper := range doc.Generator.Operations {
 		fmt.Println("#### operation ###")
 		op := &models.Operator{
 			Name:        oper.Name,
-			Template:    doc.TemplatePath + "/" + oper.Template,
+			Template:    path.Join(doc.TemplatePath, oper.Template),
 			ModelPlural: doc.Model.Plural,
 			ModelName:   doc.Model.Name,
 			Fields:      ExcludeKeys(doc.Model.Fields, oper.ExcludeFields),
+			Properties:  oper.Properties,
 		}
 
 		// TODO: verify error

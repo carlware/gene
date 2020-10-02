@@ -22,12 +22,22 @@ model:
       type: "string"
 generator:
   operations:
+    - name: "index"
+      path: "Models/{{ .ModelName }}/index.ts"
+      template: "api.tmpl"
+      properties:
+        name: "Certificate"
+        fields:
+          - name: "CreateRequest"
+            file: "_create"
+          - name: "UpdateRequest"
+            file: "_update"
+          - name: "Certificate"
+            file: ""
     - name: "model"
-      suffix: ""
       path: "Models/{{ .ModelName }}/{{ .ModelName }}.ts"
       template: "model.tpml"
     - name: "create"
-      suffix: ""
       path: "Models/{{ .ModelName }}/{{ .ModelName -}}_{{ .Name -}}.ts"
       template: "create.tmpl"
       exclude_fields:
