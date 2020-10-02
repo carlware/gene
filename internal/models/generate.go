@@ -14,9 +14,12 @@ type Model struct {
 }
 
 type Operation struct {
-	Name     string `yaml:"name"`
-	Filename string `yaml:"filename"`
-	Template string `yaml:"template"`
+	Name          string   `yaml:"name"`
+	Filename      string   `yaml:"filename"`
+	Template      string   `yaml:"template"`
+	Suffix        string   `yaml:"suffix"`
+	Path          string   `yaml:"path"`
+	ExcludeFields []string `yaml:"exclude_fields"`
 }
 
 type Generator struct {
@@ -24,8 +27,19 @@ type Generator struct {
 }
 
 type Document struct {
-	Root      string    `yaml:"root"`
-	Template  Template  `yaml:"template"`
-	Model     Model     `yaml:"model"`
-	Generator Generator `yaml:"generator"`
+	Root         string    `yaml:"root"`
+	TemplatePath string    `yaml:"template_path"`
+	Model        Model     `yaml:"model"`
+	Generator    Generator `yaml:"generator"`
+}
+
+type Operator struct {
+	Name        string  `yaml:"name"`
+	ModelName   string  `yaml:"model_name"`
+	ModelPlural string  `yaml:"model_plural"`
+	Template    string  `yaml:"template"`
+	Suffix      string  `yaml:"suffix"`
+	Path        string  `yaml:"path"`
+	Fields      []Field `yaml:"fields"`
+	Values      []Field `yaml:"values"`
 }

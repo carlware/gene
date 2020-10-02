@@ -1,6 +1,5 @@
-root: "."
-template:
-  path: "templates"
+root: "./src/"
+template_path: "./templates"
 model:
   name: "certificate"
   plural: "certificates"
@@ -21,22 +20,23 @@ model:
       type: "string"
     - name: "data"
       type: "string"
-generate:
+generator:
   operations:
     - name: "model"
       suffix: ""
-      template: "model.tmpl"
+      path: "Models/{{ .ModelName }}/{{ .ModelName }}.ts"
+      template: "model.tpml"
     - name: "create"
-      filename: "create.ts"
+      suffix: ""
+      path: "Models/{{ .ModelName }}/{{ .ModelName -}}_{{ .Name -}}.ts"
       template: "create.tmpl"
-      exclude_model_fields:
+      exclude_fields:
         - "id"
         - "emission_date"
         - "status"
-    - name: "api"
+    - name: "api_post"
       filename: "index.ts"
+      template: "api_post.tmpl"
+      path: "API/{{ .ModelName }}/{{ .ModelName }}_post.ts"
       fields:
         - name: "post"
-    - name: "api_post"
-      filename: "post.ts"
-      template: "api_post.tmpl"
