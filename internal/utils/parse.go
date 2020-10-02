@@ -6,7 +6,7 @@ import (
 )
 
 func EvalString(tmpl string, doc interface{}) ([]byte, error) {
-	tpl, err := template.New("test").Parse(tmpl)
+	tpl, err := template.New("eval").Parse(tmpl)
 	if err != nil {
 		return []byte{}, err
 	}

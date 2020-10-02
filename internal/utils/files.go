@@ -22,5 +22,14 @@ func CreateFolders(filename string) error {
 }
 
 func BytesToFile(filename string, content []byte) error {
-	panic("unimplemented")
+	err := CreateFolders(filename)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(filename, content, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	return nil
 }

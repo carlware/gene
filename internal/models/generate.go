@@ -1,6 +1,7 @@
 package models
 
 type Field map[string]interface{}
+type Properties map[string]interface{}
 
 type Model struct {
 	Name   string  `yaml:"name"`
@@ -9,11 +10,11 @@ type Model struct {
 }
 
 type Operation struct {
-	Name          string                 `yaml:"name"`
-	Template      string                 `yaml:"template"`
-	Path          string                 `yaml:"path"`
-	ExcludeFields []string               `yaml:"exclude_fields"`
-	Properties    map[string]interface{} `yaml:"properties"`
+	Name          string     `yaml:"name"`
+	Template      string     `yaml:"template"`
+	Path          string     `yaml:"path"`
+	ExcludeFields []string   `yaml:"exclude_fields"`
+	Properties    Properties `yaml:"properties"`
 }
 
 type Generator struct {
@@ -28,9 +29,9 @@ type Document struct {
 }
 
 type Gene struct {
-	Name       string                 `yaml:"name"`
-	Model      *Model                 `yaml:"model"`
-	Template   string                 `yaml:"template"`
-	Path       string                 `yaml:"path"`
-	Properties map[string]interface{} `yaml:"properties"`
+	Name       string     `yaml:"name"`
+	Model      *Model     `yaml:"model"`
+	Template   string     `yaml:"template"`
+	Path       string     `yaml:"path"`
+	Properties Properties `yaml:"properties"`
 }

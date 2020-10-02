@@ -1,4 +1,4 @@
-destination: "./src/"
+destination: "./src"
 templates_path: "./templates"
 model:
   name: "certificate"

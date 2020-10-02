@@ -2,12 +2,11 @@ package generator
 
 import (
 	"bytes"
+	"carlware/gene/internal/funcs"
 	"carlware/gene/internal/models"
 	"carlware/gene/internal/utils"
 	"io/ioutil"
-	"os"
 	"path"
-	"strings"
 	"text/template"
 
 	"fmt"
@@ -15,42 +14,29 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var funcs = template.FuncMap{"title": strings.Title}
-
-func Generate(operation interface{}, temp, output string) error {
+func Generate(operation interface{}, templateName, temp, output string) error {
 	tmplString, err := utils.FileToString(temp)
 	if err != nil {
-		fmt.Println("error", err)
+		return err
 	}
 
-	tmpl, err := template.New("test").Funcs(funcs).Parse(tmplString)
+	tmpl, err := template.New(templateName).Funcs(funcs.Funcs).Parse(tmplString)
 	if err != nil {
-		fmt.Println("error", err)
+		return err
 	}
 	out := &bytes.Buffer{}
 
 	err = tmpl.Execute(out, operation)
 	if err != nil {
-		fmt.Println("err", err)
+		return err
 	}
 
-	err = utils.CreateFolders(output)
+	err = utils.BytesToFile(output, out.Bytes())
 	if err != nil {
-		fmt.Println("cannot create folder", err)
-	}
-
-	err = ioutil.WriteFile(output, out.Bytes(), os.ModePerm)
-	if err != nil {
-		fmt.Println("err", err)
+		return err
 	}
 
 	return nil
-}
-
-func RunOperation(oper *models.Gene) {
-	fmt.Println(oper)
-	Generate(oper, oper.Template, oper.Path)
-
 }
 
 func ParseTemplate(templatePath string) (*models.Document, error) {
@@ -91,14 +77,11 @@ func ExcludeKeys(arr []models.Field, keys []string) []models.Field {
 func Gen(templatePath string) {
 	doc, err := ParseTemplate(templatePath)
 	if err != nil {
-		fmt.Println("template error", err)
+		fmt.Println("error while parsing template")
+		panic(err)
 	}
 
-	// masterTmpl, err := template.New("master").Funcs(funcs)
-
-	fmt.Println("operations")
 	for _, oper := range doc.Generator.Operations {
-		fmt.Println("#### operation ###")
 		op := &models.Gene{
 			Name:     oper.Name,
 			Template: path.Join(doc.TemplatesPath, oper.Template),
@@ -110,16 +93,20 @@ func Gen(templatePath string) {
 			Properties: oper.Properties,
 		}
 
-		// TODO: verify error
 		dst, err := utils.EvalString(oper.Path, op)
 		if err != nil {
+			fmt.Println("error while evaluating the path", oper.Path)
 			panic(err)
 		}
-
 		op.Path = path.Join(doc.Destination, string(dst))
 
-		RunOperation(op)
-		fmt.Println("#############")
+		err = Generate(op, op.Name, op.Template, op.Path)
+		if err != nil {
+			fmt.Println("error while generating files")
+			panic(err)
+		}
 	}
+
+	fmt.Println("files generated successfully")
 
 }
