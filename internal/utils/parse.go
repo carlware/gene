@@ -2,11 +2,12 @@ package utils
 
 import (
 	"bytes"
-	"html/template"
+	"carlware/gene/internal/funcs"
+	"text/template"
 )
 
 func EvalString(tmpl string, doc interface{}) ([]byte, error) {
-	tpl, err := template.New("eval").Parse(tmpl)
+	tpl, err := template.New("eval").Funcs(funcs.Funcs).Parse(tmpl)
 	if err != nil {
 		return []byte{}, err
 	}
