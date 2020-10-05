@@ -10,11 +10,8 @@ type Model struct {
 }
 
 type Operation struct {
-	Name          string     `yaml:"name"`
-	Template      string     `yaml:"template"`
-	Path          string     `yaml:"path"`
-	ExcludeFields []string   `yaml:"exclude_fields"`
-	Properties    Properties `yaml:"properties"`
+	Name string `yaml:"name"`
+	Type string
 }
 
 type Generator struct {
