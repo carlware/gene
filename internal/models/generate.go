@@ -3,32 +3,52 @@ package models
 type Field map[string]interface{}
 type Properties map[string]interface{}
 
+type Base struct {
+	Name       string     `yaml:"name"`
+	Plural     string     `yaml:"plural"`
+	Properties Properties `yaml:"properties"`
+	Fields     []Field    `yaml:"fields"`
+}
+
+type Request struct {
+	Properties Properties `yaml:"properties"`
+	Fields     []Field    `yaml:"fields"`
+}
+
+type Response struct {
+	Properties Properties `yaml:"properties"`
+	Fields     []Field    `yaml:"fields"`
+}
+
+type Action struct {
+	Name       string     `yaml:"name"`
+	Plural     string     `yaml:"plural"`
+	Template   string     `yaml:"template"`
+	Properties Properties `yaml:"properties"`
+	Request    Request    `yaml:"request"`
+	Response   Response   `yaml:"response"`
+}
+
 type Model struct {
-	Name   string  `yaml:"name"`
-	Plural string  `yaml:"plural"`
-	Fields []Field `yaml:"fields"`
+	Name       string     `yaml:"name"`
+	Plural     string     `yaml:"plural"`
+	Properties Properties `yaml:"properties"`
+	Fields     []Field    `yaml:"fields"`
 }
 
 type Operation struct {
 	Name string `yaml:"name"`
-	Type string
-}
+	Type string `yaml:"type"`
 
-type Generator struct {
-	Operations []Operation `yaml:"operations"`
+	// operation types
+	Generic Generic `yaml:"generic"`
+	Process Process `yaml:"process"`
 }
 
 type Document struct {
-	Destination   string    `yaml:"destination"`
-	TemplatesPath string    `yaml:"templates_path"`
-	Model         Model     `yaml:"model"`
-	Generator     Generator `yaml:"generator"`
-}
-
-type Gene struct {
-	Name       string     `yaml:"name"`
-	Model      *Model     `yaml:"model"`
-	Template   string     `yaml:"template"`
-	Path       string     `yaml:"path"`
-	Properties Properties `yaml:"properties"`
+	Destination   string      `yaml:"destination"`
+	TemplatesPath string      `yaml:"templates_path"`
+	Model         Model       `yaml:"model"`
+	Actions       []Action    `yaml:"actions"`
+	Operations    []Operation `yaml:"operations"`
 }
