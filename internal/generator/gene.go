@@ -22,4 +22,5 @@ func Gen(templatePath string) {
 		}
 	}
 
+	fmt.Println("files generated successfully")
 }

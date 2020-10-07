@@ -30,5 +30,4 @@ func ExecGeneric(oper *models.Operation, doc *models.Document) {
 		panic(err)
 	}
 
-	fmt.Println("files generated successfully")
 }
