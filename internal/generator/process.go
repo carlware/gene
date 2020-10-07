@@ -35,7 +35,5 @@ func ExecActions(oper *models.Operation, doc *models.Document) {
 			fmt.Println("error while generating files", dstPath, tempPath)
 			panic(err)
 		}
-
-		fmt.Println("action name", act.Name)
 	}
 }
