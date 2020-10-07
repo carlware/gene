@@ -41,3 +41,20 @@ func ExcludeKeys(arr []models.Field, keys []string) []models.Field {
 	}
 	return fields
 }
+
+func ExcludeActions(arr []models.Action, keys []string) []models.Action {
+	actions := []models.Action{}
+	for _, action := range arr {
+		excluded := false
+		for _, key := range keys {
+			if action.Name == key {
+				excluded = true
+				break
+			}
+		}
+		if !excluded {
+			actions = append(actions, action)
+		}
+	}
+	return actions
+}

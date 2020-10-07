@@ -12,10 +12,12 @@ func ExecActions(oper *models.Operation, doc *models.Document) {
 	for _, act := range doc.Actions {
 		process := &models.Process{
 			Model:   doc.Model,
-			Actions: doc.Actions,
+			Actions: ExcludeActions(doc.Actions, oper.Process.ExcludeActions),
 			Action:  &act,
 			Name:    act.Name,
 		}
+
+		fmt.Println("action", process.Action)
 
 		dst, err := utils.EvalString(oper.Process.Path, process)
 		if err != nil {

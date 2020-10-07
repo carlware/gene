@@ -13,7 +13,7 @@ func ExecGeneric(oper *models.Operation, doc *models.Document) {
 		Template:   path.Join(doc.TemplatesPath, oper.Generic.Template),
 		Properties: oper.Generic.Properties,
 		Model:      &doc.Model,
-		Actions:    doc.Actions,
+		Actions:    ExcludeActions(doc.Actions, oper.Generic.ExcludeActions),
 	}
 	op.Model.Fields = ExcludeKeys(doc.Model.Fields, oper.Generic.ExcludeFields)
 

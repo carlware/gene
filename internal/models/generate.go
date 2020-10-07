@@ -21,19 +21,13 @@ type Response struct {
 }
 
 type Action struct {
-	Name       string     `yaml:"name"`
-	Plural     string     `yaml:"plural"`
-	Template   string     `yaml:"template"`
-	Properties Properties `yaml:"properties"`
-	Request    Request    `yaml:"request"`
-	Response   Response   `yaml:"response"`
+	Base     `yaml:",inline"`
+	Request  Request  `yaml:"request"`
+	Response Response `yaml:"response"`
 }
 
 type Model struct {
-	Name       string     `yaml:"name"`
-	Plural     string     `yaml:"plural"`
-	Properties Properties `yaml:"properties"`
-	Fields     []Field    `yaml:"fields"`
+	Base `yaml:",inline"`
 }
 
 type Operation struct {
