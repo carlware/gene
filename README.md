@@ -4,10 +4,10 @@ This project aims to generate code using golang templates. Sometimes We have a l
 
 
 ## TODO
-[x] Create project structure
-[x] Add a cli interface
-[x] Create a property model
-[x] Create a property actions
-[ ] Add unit testing
-[ ] Add examples
-[ ] Generate releases for platforms
+*[x] Create project structure
+*[x] Add a cli interface
+*[x] Create a property model
+*[x] Create a property actions
+*[ ] Add unit testing
+*[ ] Add examples
+*[ ] Generate releases for platforms
