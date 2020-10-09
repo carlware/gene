@@ -23,8 +23,6 @@ func FillActionsWithModel(acts []models.Action, mFields []models.Field) []models
 					Fields:     act.Response.Fields,
 				},
 			}
-			fmt.Println("exclude", act.Exclude)
-			fmt.Println("fields", fields)
 			actions = append(actions, action)
 		} else {
 			actions = append(actions, act)
