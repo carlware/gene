@@ -17,9 +17,21 @@ func hyphen(in string) string {
 	return newString
 }
 
+func has(in []interface{}, key string) bool {
+	for _, param := range in {
+		if val, ok := param.(string); ok {
+			if val == key {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 var Funcs = template.FuncMap{
 	"title":  strings.Title,
 	"join":   strings.Join,
 	"upper":  strings.ToUpper,
 	"hyphen": hyphen,
+	"has":    has,
 }
