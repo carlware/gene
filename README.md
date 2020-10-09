@@ -11,3 +11,4 @@ This project aims to generate code using golang templates. Sometimes We have a l
 * [ ] Add unit testing
 * [ ] Add examples
 * [ ] Generate releases for platforms
+* [ ] Support custom javascript functions
