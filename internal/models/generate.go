@@ -21,9 +21,13 @@ type Response struct {
 }
 
 type Action struct {
-	Base     `yaml:",inline"`
-	Request  Request  `yaml:"request"`
-	Response Response `yaml:"response"`
+	Name       string     `yaml:"name"`
+	Plural     string     `yaml:"plural"`
+	Properties Properties `yaml:"properties"`
+	Inherit    bool       `yaml:"inherit"`
+	Exclude    []string   `yaml:"exclude"`
+	Request    *Request   `yaml:"request"`
+	Response   *Response  `yaml:"response"`
 }
 
 type Model struct {
