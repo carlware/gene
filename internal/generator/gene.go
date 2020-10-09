@@ -14,15 +14,17 @@ func FillActionsWithModel(acts []models.Action, mFields []models.Field) []models
 			action := models.Action{
 				Name:       act.Name,
 				Properties: act.Properties,
-				Request: &models.Request{
+				Request: models.Request{
 					Properties: act.Request.Properties,
 					Fields:     append(act.Request.Fields, fields...),
 				},
-				Response: &models.Response{
+				Response: models.Response{
 					Properties: act.Response.Properties,
 					Fields:     act.Response.Fields,
 				},
 			}
+			fmt.Println("exclude", act.Exclude)
+			fmt.Println("fields", fields)
 			actions = append(actions, action)
 		} else {
 			actions = append(actions, act)

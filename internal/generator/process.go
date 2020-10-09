@@ -16,8 +16,16 @@ func ExecActions(oper *models.Operation, doc *models.Document) {
 			Action:  &act,
 			Name:    act.Name,
 		}
-
-		fmt.Println("action", process.Action)
+		exclude := false
+		for _, key := range oper.Process.ExcludeActions {
+			if act.Name == key {
+				exclude = true
+				break
+			}
+		}
+		if exclude {
+			continue
+		}
 
 		dst, err := utils.EvalString(oper.Process.Path, process)
 		if err != nil {

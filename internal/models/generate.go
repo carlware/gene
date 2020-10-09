@@ -26,8 +26,8 @@ type Action struct {
 	Properties Properties `yaml:"properties"`
 	Inherit    bool       `yaml:"inherit"`
 	Exclude    []string   `yaml:"exclude"`
-	Request    *Request   `yaml:"request"`
-	Response   *Response  `yaml:"response"`
+	Request    Request    `yaml:"request"`
+	Response   Response   `yaml:"response"`
 }
 
 type Model struct {
