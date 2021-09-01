@@ -8,7 +8,9 @@ This project aims to generate code using golang templates. Sometimes We have a l
 * [x] Add a cli interface
 * [x] Create a property model
 * [x] Create a property actions
+* [x] Refactor
 * [ ] Add unit testing
 * [ ] Add examples
 * [ ] Generate releases for platforms
+* [ ] Validate YAML input file
 * [ ] Support custom javascript functions
